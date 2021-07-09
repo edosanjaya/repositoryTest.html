@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+</head>
+<body>
+<div><b id="output">00:00:00:00</b></div>
+<ul id="catatanStopwatch">
+</ul>
+<button id="startPause" onclick="StartPauseStopwatch()">START</button>
+<button id="reset" onclick="reset()">RESET</button>
+<button onclick="catatkanStopwatch()">CATATKAN</button>
+<script type="text/javascript">
+var time = 0;
+var jalankan = false;
+var resetkan = false;
+var berjalan = false;
+function reset(){
+resetkan = true;
+stopwatch()
+}
+
+function catatkanStopwatch(){
+if(berjalan){
+var hasilStopwatch = document.getElementById("output").innerText;
+document.getElementById("catatanStopwatch").innerHTML = document.getElementById("catatanStopwatch").innerHTML+"<li>"+hasilStopwatch+"</li>";
+}else if(!berjalan){
+alert("stopwatch tidak berjalan")
+}
+}
+
+function StartPauseStopwatch(){
+if(!jalankan){
+jalankan = true;
+resetkan = false;
+stopwatch()
+document.getElementById("startPause").innerText = "PAUSE";
+}else {
+jalankan = false;
+resetkan = false;
+berjalan = false
+document.getElementById("startPause").innerText = "RESUME"
+}
+}
+function stopwatch(){
+if(jalankan){
+berjalan = true;
+setTimeout(function(){
+time++;
+var ms = time%100;
+var s = Math.floor(time/100%60);
+var m = Math.floor(time/100/60%60);
+var h = Math.floor(time/100/60/60);
+
+if(ms < 10){
+ms = "0"+ms;
+}
+
+if(s < 10){
+s = "0"+s;
+}
+
+if(m < 10){
+m = "0"+m;
+}
+
+if(h < 10){
+h = "0"+h;
+}
+
+document.getElementById("output").innerText = h+":"+m+":"+s+":"+ms;
+stopwatch()
+}, 10);
+}if(resetkan){
+time = 0;
+jalankan = false;
+berjalan = false;
+document.getElementById("output").innerText = "00:00:00:00";
+document.getElementById("startPause").innerText = "START";
+document.getElementById("catatanStopwatch").innerHTML = "";
+}
+}
+</script>
+</body>
+</html>
